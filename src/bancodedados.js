@@ -10,3 +10,4 @@ module.exports = {
     depositos: [],
     transferencias: []
 }
+
