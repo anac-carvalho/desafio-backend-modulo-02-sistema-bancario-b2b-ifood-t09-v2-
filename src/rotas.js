@@ -10,7 +10,8 @@ let {
 
 let {
     deposito,
-    saque
+    saque,
+    transferencia
 } = require("./controladores/transacoes");
 
 
@@ -26,6 +27,7 @@ rotas.delete("/contas/:numeroConta", deletarConta);
 
 rotas.post('/transacoes/depositos', deposito);
 rotas.post('/transacoes/saques', saque);
+rotas.post('/transacoes/transferencias', transferencia);
 
 module.exports = rotas;
 
