@@ -29,12 +29,10 @@ function deposito(req, res) {
             numero_conta,
             valor
         }
-        banco.depositos.push(deposito);
+        depositos.push(deposito);
         res.status(201).send();
     }
-
 }
-
 module.exports = {
     deposito,
 }
