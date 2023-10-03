@@ -10,7 +10,7 @@ const listarContas = (req, res) => {
     return res
         .status(200)
         .json(contas);
-};
+}
 
 const obterConta = (req, res) => {
     const { numeroConta } = req.params;
@@ -47,8 +47,6 @@ function criarConta(req, res) {
             .json({ mensagem: "Já existe uma conta com o cpf informado!" });
     }
 
-
-    //  pegando o ultimo id cadastrado
     const maxId = contas.reduce((acc, conta) =>
         acc > conta.numeroConta ? acc : conta.numeroConta);
 
