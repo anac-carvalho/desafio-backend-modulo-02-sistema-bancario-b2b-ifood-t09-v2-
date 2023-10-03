@@ -67,8 +67,74 @@ function criarConta(req, res) {
 
 }
 
+function atualizarConta(req, res) {
+    const { nome, cpf, data_nascimento, telefone, email, senha } = req.body;
+    const { numeroConta } = req.params;
+
+    let contaExiste = contas.find((conta) => contas.numeroConta === Number(numeroConta));
+    if (!contaExiste) {
+        // devolvendo resposta de erro cliente
+        return res.status(400).json({ mensagem: "Conta não encontrada" });
+    }
+
+    if (!nome || !cpf || !data_nascimento || !telefone || !email || !senha) {
+        return res.status(400).json({ mensagem: "Todos os campos devem ser preenchido" });
+    }
+
+    const emailJaExiste = contas.find(
+        (conta) => conta.email === email && conta.numeroConta !== Number(numeroConta)
+    );
+    if (emailJaExiste) {
+        return res.status(400).json({ mensagem: "Email já existe cadastrado" });
+    };
+
+    const cpfJaExiste = contas.find(
+        (conta) => conta.cpf === cpf && conta.numeroConta !== Number(numeroConta)
+    );
+    if (cpf) {
+        return res.status(400).json({ mensagem: "CPF já existe cadastrado" });
+    };
+
+    contas = contas.map((conta) => {
+        if (Number(numeroConta) === aluno.numeroConta) {
+            return {
+                numeroConta: Number(numeroConta),
+                nome,
+                cpf,
+                data_nascimento,
+                telefone,
+                email,
+                senha,
+            };
+        } else {
+            return conta;
+        }
+    });
+    return res.status(204).send();
+}
+
+function deletarConta(req, res) {
+    const { numeroConta } = req.params;
+
+    const contaIndex = contas.findIndex((conta) => conta.numeroConta === Number(numero));
+
+    if (contaIndex == -1) {
+
+        return res.status(400).json({ mensagem: "Conta não encontrado" });
+    }
+
+    if (saldo !== 0) {
+        return res.status(400).json({ mensagem: "A conta só pode ser removida se o saldo for zero!" });
+    }
+
+    contas.splice(contaIndex, 1);
+    return res.status(204).send();
+}
+
 module.exports = {
     listarContas,
     obterConta,
-    criarConta
+    criarConta,
+    atualizarConta,
+    deletarConta
 }
