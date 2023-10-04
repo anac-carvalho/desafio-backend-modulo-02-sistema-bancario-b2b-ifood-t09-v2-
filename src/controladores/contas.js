@@ -21,6 +21,7 @@ const obterConta = (req, res) => {
     }
     return res.status(200).json(conta);
 }
+let novoNumeroConta = 2
 
 function criarConta(req, res) {
     const { nome, cpf, data_nascimento, telefone, email, senha } = req.body;
@@ -51,7 +52,7 @@ function criarConta(req, res) {
         acc > conta.numeroConta ? acc : conta.numeroConta);
 
     contas.push({
-        numeroConta: maxId + 1,
+        numeroConta: novoNumeroConta++,
         saldo: 0,
         nome,
         cpf,
